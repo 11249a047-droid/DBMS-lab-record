@@ -1,0 +1,160 @@
+
+SQL*Plus: Release 11.2.0.1.0 Production on Tue Aug 4 03:39:00 2026
+
+Copyright (c) 1982, 2010, Oracle.  All rights reserved.
+
+Enter user-name: A021@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table course21(
+  2      course_id number(5) primary key,
+  3      course_name varchar2(20));
+
+Table created.
+
+SQL>
+SQL> desc course21
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID                                 NOT NULL NUMBER(5)
+ COURSE_NAME                                        VARCHAR2(20)
+
+SQL> create table student21(
+  2    reg varchar(10) primary key,
+  3    name varchar(20) not null,
+  4    course_id number(10) references course21(course_id),
+  5    email varchar(30) not null unique,
+  6    age number check(age>18),
+  7    gender char default 'F');
+create table student21(
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL>
+SQL> create table student15(
+  2    reg varchar(10) primary key,
+  3    name varchar(20) not null,
+  4    course_id number(10) references course21(course_id),
+  5    email varchar(30) not null unique,
+  6    age number check(age>18),
+  7    gender char default 'F');
+
+Table created.
+
+SQL>
+SQL> desc student15
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REG                                       NOT NULL VARCHAR2(10)
+ NAME                                      NOT NULL VARCHAR2(20)
+ COURSE_ID                                          NUMBER(10)
+ EMAIL                                     NOT NULL VARCHAR2(30)
+ AGE                                                NUMBER
+ GENDER                                             CHAR(1)
+
+SQL> insert into course21 values('1','cse');
+
+1 row created.
+
+SQL> insert into course21 values('2','ece');
+
+1 row created.
+
+SQL> insert into course21 values('3','eee');
+
+1 row created.
+
+SQL> insert into course21 values('4',civil');
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> insert into course21 values('4','civil');
+
+1 row created.
+
+SQL> select * from course21;
+
+ COURSE_ID COURSE_NAME
+---------- --------------------
+         1 cse
+         2 ece
+         3 eee
+         4 civil
+
+SQL> insert into student15 values('11249A021','navya','1','11249a021kanchiuniv.ac.in','20','f');
+
+1 row created.
+
+SQL> insert into student15 values('11249A020','aishwarya','2','11249a020kanchiuniv.ac.in','20','f');
+
+1 row created.
+
+SQL> insert into student15 values('11249A058','bhavya','4','11249a058kanchiuniv.ac.in','20','f');
+
+1 row created.
+
+SQL>  insert into student15 values('11249A034','dhanya','3','11249a034kanchiuniv.ac.in','20','f');
+
+1 row created.
+
+SQL> select * from student15;
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A021  navya                         1 11249a021kanchiuniv.ac.in
+        20 f
+
+11249A020  aishwarya                     2 11249a020kanchiuniv.ac.in
+        20 f
+
+11249A058  bhavya                        4 11249a058kanchiuniv.ac.in
+        20 f
+
+
+REG        NAME                  COURSE_ID EMAIL
+---------- -------------------- ---------- ------------------------------
+       AGE G
+---------- -
+11249A034  dhanya                        3 11249a034kanchiuniv.ac.in
+        20 f
+
+
+SQL> select name,reg from student15;
+
+NAME                 REG
+-------------------- ----------
+navya                11249A021
+aishwarya            11249A020
+bhavya               11249A058
+dhanya               11249A034
+
+SQL> select name,reg from student15 where name like '%a';
+
+NAME                 REG
+-------------------- ----------
+navya                11249A021
+aishwarya            11249A020
+bhavya               11249A058
+dhanya               11249A034
+
+SQL> select name,reg from student15 where name like 'a%';
+
+NAME                 REG
+-------------------- ----------
+aishwarya            11249A020
+
+SQL> select count(*) from student15;
+
+  COUNT(*)
+----------
+         4
+
+SQL>
