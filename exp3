@@ -1,0 +1,95 @@
+Enter user-name: A021@db2021
+Enter password:
+
+Connected to:
+Oracle Database 11g Release 11.2.0.1.0 - Production
+
+SQL> create table student2(
+  2    student2_name varchar2(10),
+  3    student2_id number(10),
+  4    student2_age number(2),
+  5    student2_gender char,
+  6    student2_mail varchar2(25));
+
+Table created.
+
+SQL> create table teacher(
+  2    teacher_id number(5),
+  3    teacher_name varchar2(20));
+
+Table created.
+
+SQL> alter table teacher add constraint teacher_id primary key(teacher_id);
+
+Table altered.
+
+SQL> desc teacher
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TEACHER_ID                                NOT NULL NUMBER(5)
+ TEACHER_NAME                                       VARCHAR2(20)
+
+SQL> alter table student2 add constraint student2_id unique(student2_id);
+
+Table altered.
+
+SQL> alter table student2 add constraint student2_name primary key(student2_name);
+
+Table altered.
+
+SQL> alter table student2 add constraint student2_mail unique(student2_mail);
+
+Table altered.
+
+SQL> desc student2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT2_NAME                             NOT NULL VARCHAR2(10)
+ STUDENT2_ID                                        NUMBER(10)
+ STUDENT2_AGE                                       NUMBER(2)
+ STUDENT2_GENDER                                    CHAR(1)
+ STUDENT2_MAIL                                      VARCHAR2(25)
+
+
+SQL> alter table student2 modify student2_gender default 'm';
+
+Table altered.
+
+SQL> insert into student2 values('navya
+  2
+SQL> insert into student2 values('navya','21','19','f','user@gmail.com');
+
+1 row created.
+
+SQL> insert into student2 values('lahari','22','20','f','user1@gmail.com');
+
+1 row created.
+
+SQL> insert into student2 values('ganith','23','21','m','user12@gmail.com');
+
+1 row created.
+
+SQL> desc student2
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDENT2_NAME                             NOT NULL VARCHAR2(10)
+ STUDENT2_ID                                        NUMBER(10)
+ STUDENT2_AGE                                       NUMBER(2)
+ STUDENT2_GENDER                                    CHAR(1)
+ STUDENT2_MAIL                                      VARCHAR2(25)
+
+SQL> select * from student2
+  2  ;
+
+STUDENT2_N STUDENT2_ID STUDENT2_AGE S STUDENT2_MAIL
+---------- ----------- ------------ - -------------------------
+navya               21           19 f user@gmail.com
+lahari              22           20 f user1@gmail.com
+ganith              23           21 m user12@gmail.com
+
+
+
+
+SQL>  alter table student2 add constraint age check(student2_age>18);
+
+Table altered.
